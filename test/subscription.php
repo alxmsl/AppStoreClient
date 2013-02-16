@@ -11,14 +11,14 @@ include '../lib/Network/source/Autoloader.php';
 /**
  * Define needed constants
  */
-const   PASSWORD = 'secred shared password',
+const   PASSWORD = 'secredsharedpassword',
         SANDBOX = true,
-        RECEIPT = 'receipt';
+        RECEIPT = 'MySECReT5u8sCR1Pti0NRece1Pt=';
 
 // Create App Store client for production or sandbox
 $AppStore = new \AppStore\Client\AppStoreClient();
 $AppStore->setPassword(PASSWORD)
     ->setSandbox(SANDBOX);
 
-// Verify purchase receipt
+// Verify subscription receipt
 var_dump($AppStore->verifyReceipt(RECEIPT));
