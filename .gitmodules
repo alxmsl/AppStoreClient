@@ -1,0 +1,3 @@
+[submodule "lib/Network"]
+	path = lib/Network
+	url = git@github.com:alxmsl/Network.git
