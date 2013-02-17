@@ -21,4 +21,8 @@ $AppStore->setPassword(PASSWORD)
     ->setSandbox(SANDBOX);
 
 // Verify subscription receipt
-var_dump($AppStore->verifyReceipt(RECEIPT));
+try {
+    var_dump($AppStore->verifyReceipt(RECEIPT));
+} catch (\AppStore\Client\Response\ExpiredSubscriptionException $ex) {
+    var_dump($ex->getStatus());
+}

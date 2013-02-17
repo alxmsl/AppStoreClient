@@ -72,7 +72,6 @@ final class RenewableStatus extends Status {
         $Object = json_decode($string);
         switch ($Object->status) {
             case self::STATUS_OK:
-            case self::STATUS_EXPIRED_SUBSCRIPTION:
                 if (!isset($Object->latest_receipt)) {
                     throw new \InvalidArgumentException();
                 } else {
@@ -81,12 +80,13 @@ final class RenewableStatus extends Status {
                         ->setLatestReceiptInfo(RenewableReceipt::initializeByObject($Object->latest_receipt_info))
                         ->setStatus($Object->status)
                         ->setReceipt(RenewableReceipt::initializeByObject($Object->receipt));
-                    if ($RenewableStatus == self::STATUS_EXPIRED_SUBSCRIPTION) {
-                        throw new ExpiredSubscriptionException($RenewableStatus);
-                    } else {
-                        return $RenewableStatus;
-                    }
+                    return $RenewableStatus;
                 }
+            case self::STATUS_EXPIRED_SUBSCRIPTION:
+                $RenewableStatus = new self();
+                $RenewableStatus->setStatus($Object->status)
+                    ->setReceipt(RenewableReceipt::initializeByObject($Object->receipt));
+                throw new ExpiredSubscriptionException($RenewableStatus);
             default:
                 $exceptionClass = self::checkStatus($Object->status);
                 $Exception = new $exceptionClass($string, $Object->status);
