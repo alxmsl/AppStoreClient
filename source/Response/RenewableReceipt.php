@@ -52,7 +52,7 @@ final class RenewableReceipt extends Receipt {
             ->setQuantity($Object->quantity);
             
         if (isset($Object->cancellation_date)) {
-            $Receipt->setCancellationDate($Object->cancellation_date);
+            $RenewableReceipt->setCancellationDate($Object->cancellation_date);
         }    
             
         return $RenewableReceipt;
