@@ -48,7 +48,13 @@ final class RenewableReceipt extends Receipt {
             ->setPurchaseDate($Object->purchase_date)
             ->setQuantity($Object->quantity)
             ->setTransactionId($Object->transaction_id)
+            ->setWebOrderLineItemId($Object->web_order_line_item_id)
             ->setQuantity($Object->quantity);
+            
+        if ($Object->cancellation_date) {
+            $RenewableReceipt->setCancellationDate($Object->cancellation_date);
+        }    
+            
         return $RenewableReceipt;
     }
 }
