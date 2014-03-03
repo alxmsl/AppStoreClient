@@ -61,6 +61,17 @@ class Receipt implements ObjectInitializedInterface {
     private $bvrs = '';
 
     /**
+     * @var string The primary key for identifying subscription purchases
+     */
+    private $webOrderLineItemId = '';
+
+    /**
+     * @var string For a transaction that was canceled by Apple customer support, the time and date of the cancellation.
+     * Treat a canceled receipt the same as if no purchase had ever been made
+     */
+    private $cancellationDate = '';
+
+    /**
      * Setter for application identifier from App Store
      * @param string $appItemId application identifier from App Store
      * @return Receipt self
@@ -241,6 +252,48 @@ class Receipt implements ObjectInitializedInterface {
     }
 
     /**
+     * The primary key for identifying subscription purchases
+     * @param string $webOrderLineItemId
+     * @return $this
+     */
+    public function setWebOrderLineItemId($webOrderLineItemId)
+    {
+        $this->webOrderLineItemId = $webOrderLineItemId;
+        return $this;
+    }
+
+    /**
+     * The primary key for identifying subscription purchases
+     * @return string
+     */
+    public function getWebOrderLineItemId()
+    {
+        return $this->webOrderLineItemId;
+    }
+
+    /**
+     * For a transaction that was canceled by Apple customer support, the time and date of the cancellation.
+     * Treat a canceled receipt the same as if no purchase had ever been made.
+     * @return string
+     */
+    public function getCancellationDate()
+    {
+        return $this->cancellationDate;
+    }
+
+    /**
+     * For a transaction that was canceled by Apple customer support, the time and date of the cancellation.
+     * Treat a canceled receipt the same as if no purchase had ever been made.
+     * @param string $cancellationDate
+     * @return $this
+     */
+    public function setCancellationDate($cancellationDate)
+    {
+        $this->cancellationDate = $cancellationDate;
+        return $this;
+    }
+
+    /**
      * Initialization method
      * @param \stdClass $Object object for initialization
      * @return RenewableReceipt initialized receipt for auto-renewable subscription
@@ -256,7 +309,13 @@ class Receipt implements ObjectInitializedInterface {
             ->setPurchaseDate($Object->purchase_date)
             ->setQuantity($Object->quantity)
             ->setTransactionId($Object->transaction_id)
+            ->setWebOrderLineItemId($Object->web_order_line_item_id)
             ->setQuantity($Object->quantity);
+
+        if ($Object->cancellation_date) {
+            $Receipt->setCancellationDate($Object->cancellation_date);
+        }
+
         return $Receipt;
     }
 }
