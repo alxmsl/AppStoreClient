@@ -8,7 +8,7 @@ use AppStore\Client\ObjectInitializedInterface;
  * Purchases receipt class
  * @author alxmsl
  * @date 2/14/13
- */ 
+ */
 class Receipt implements ObjectInitializedInterface {
     /**
      * @var int number of purchased items
@@ -60,16 +60,11 @@ class Receipt implements ObjectInitializedInterface {
      */
     private $bvrs = '';
 
-	/**
-	 * @var string The primary key for identifying subscription purchases
-	 */
-	private $webOrderLineItemId = '';
-
-	/**
-	 * @var string For a transaction that was canceled by Apple customer support, the time and date of the cancellation.
-	 * Treat a canceled receipt the same as if no purchase had ever been made
-	 */
-	private $cancellationDate = '';
+    /**
+     * @var string For a transaction that was canceled by Apple customer support, the time and date of the cancellation.
+     * Treat a canceled receipt the same as if no purchase had ever been made
+     */
+    private $cancellationDate = '';
 
     /**
      * Setter for application identifier from App Store
@@ -251,47 +246,27 @@ class Receipt implements ObjectInitializedInterface {
         return $this->versionExternalIdentifier;
     }
 
-	/**
-	 * The primary key for identifying subscription purchases
-	 * @param string $webOrderLineItemId
-	 * @return $this
-	 */
-	public function setWebOrderLineItemId($webOrderLineItemId)
-	{
-		$this->webOrderLineItemId = $webOrderLineItemId;
-		return $this;
-	}
+    /**
+     * For a transaction that was canceled by Apple customer support, the time and date of the cancellation.
+     * Treat a canceled receipt the same as if no purchase had ever been made.
+     * @return string
+     */
+    public function getCancellationDate()
+    {
+        return $this->cancellationDate;
+    }
 
-	/**
-	 * The primary key for identifying subscription purchases
-	 * @return string
-	 */
-	public function getWebOrderLineItemId()
-	{
-		return $this->webOrderLineItemId;
-	}
-
-	/**
-	 * For a transaction that was canceled by Apple customer support, the time and date of the cancellation.
-	 * Treat a canceled receipt the same as if no purchase had ever been made.
-	 * @return string
-	 */
-	public function getCancellationDate()
-	{
-		return $this->cancellationDate;
-	}
-
-	/**
-	 * For a transaction that was canceled by Apple customer support, the time and date of the cancellation.
-	 * Treat a canceled receipt the same as if no purchase had ever been made.
-	 * @param string $cancellationDate
-	 * @return $this
-	 */
-	public function setCancellationDate($cancellationDate)
-	{
-		$this->cancellationDate = $cancellationDate;
-		return $this;
-	}
+    /**
+     * For a transaction that was canceled by Apple customer support, the time and date of the cancellation.
+     * Treat a canceled receipt the same as if no purchase had ever been made.
+     * @param string $cancellationDate
+     * @return $this
+     */
+    public function setCancellationDate($cancellationDate)
+    {
+        $this->cancellationDate = $cancellationDate;
+        return $this;
+    }
 
     /**
      * Initialization method
@@ -300,21 +275,46 @@ class Receipt implements ObjectInitializedInterface {
      */
     public static function initializeByObject(\stdClass $Object) {
         $Receipt = new self();
-        $Receipt->setAppItemId($Object->app_item_id)
-            ->setBid($Object->bid)
-            ->setBvrs($Object->bvrs)
-            ->setOriginalPurchaseDate($Object->original_purchase_date)
-            ->setOriginalTransactionId($Object->original_transaction_id)
-            ->setProductId($Object->product_id)
-            ->setPurchaseDate($Object->purchase_date)
-            ->setQuantity($Object->quantity)
-            ->setTransactionId($Object->transaction_id)
-			->setWebOrderLineItemId($Object->web_order_line_item_id)
-            ->setQuantity($Object->quantity);
 
-		if ($Object->cancellation_date) {
-			$Receipt->setCancellationDate($Object->cancellation_date);
-		}
+        if (isset($Object->app_item_id)) {
+            $Receipt->setAppItemId($Object->app_item_id);
+        }
+
+        if (isset($Object->bid)) {
+            $Receipt->setBid($Object->bid);
+        }
+
+        if (isset($Object->bvrs)) {
+            $Receipt->setBvrs($Object->bvrs);
+        }
+
+        if (isset($Object->product_id)) {
+            $Receipt->setProductId($Object->product_id);
+        }
+
+        if (isset($Object->quantity)) {
+            $Receipt->setQuantity($Object->quantity);
+        }
+
+        if (isset($Object->transaction_id)) {
+            $Receipt->setTransactionId($Object->transaction_id);
+        }
+
+        if (isset($Object->original_transaction_id)) {
+            $Receipt->setOriginalTransactionId($Object->original_transaction_id);
+        }
+
+        if (isset($Object->purchase_date)) {
+            $Receipt->setPurchaseDate($Object->purchase_date);
+        }
+
+        if (isset($Object->original_purchase_date)) {
+            $Receipt->setOriginalPurchaseDate($Object->original_purchase_date);
+        }
+
+        if (isset($Object->cancellation_date)) {
+            $Receipt->setCancellationDate($Object->cancellation_date);
+        }
 
         return $Receipt;
     }
