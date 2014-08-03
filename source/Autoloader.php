@@ -10,7 +10,7 @@
 namespace alxmsl\AppStore;
 
 // append autoloader
-spl_autoload_register(array('\AppStore\Client\Autoloader', 'autoload'));
+spl_autoload_register(array('\alxmsl\AppStore\Autoloader', 'autoload'));
 
 /**
  * AppStore Client classes autoloader
