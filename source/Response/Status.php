@@ -1,8 +1,14 @@
 <?php
 
-namespace AppStore\Client\Response;
-
-use AppStore\Client\StringInitializedInterface;
+namespace alxmsl\AppStore\Response;
+use alxmsl\AppStore\Exception\InvalidReceiptException;
+use alxmsl\AppStore\Exception\MalformedReceiptDataException;
+use alxmsl\AppStore\Exception\ProductionReceiptOnSandboxException;
+use alxmsl\AppStore\Exception\SandboxReceiptOnProductionException;
+use alxmsl\AppStore\Exception\UnauthenticatedReceiptException;
+use alxmsl\AppStore\Exception\UnavailableServerException;
+use alxmsl\AppStore\Exception\UnreadableRequestException;
+use alxmsl\AppStore\StringInitializedInterface;
 
 /**
  * Class for iTunes status of receipt
@@ -13,14 +19,14 @@ class Status implements StringInitializedInterface {
     /**
      * Status code constants
      */
-    const   STATUS_INVALID                          = -1,
-            STATUS_OK                               = 0,
-            STATUS_UNREADABLE_JSON_OBJECT           = 21000,
-            STATUS_MALFORMED_RECEIPT_DATA           = 21002,
-            STATUS_UNAUTHENTICATED_RECEIPT          = 21003,
-            STATUS_UNAVAILABLE_SERVER               = 21005,
-            STATUS_IS_SANDBOX_RECEIPT_ON_PRODUCTION = 21007,
-            STATUS_IS_PRODUCTION_RECEIPT_ON_SANDBOX = 21008;
+    const STATUS_INVALID                          = -1,
+          STATUS_OK                               = 0,
+          STATUS_UNREADABLE_JSON_OBJECT           = 21000,
+          STATUS_MALFORMED_RECEIPT_DATA           = 21002,
+          STATUS_UNAUTHENTICATED_RECEIPT          = 21003,
+          STATUS_UNAVAILABLE_SERVER               = 21005,
+          STATUS_IS_SANDBOX_RECEIPT_ON_PRODUCTION = 21007,
+          STATUS_IS_PRODUCTION_RECEIPT_ON_SANDBOX = 21008;
 
     /**
      * @var int receipt status code
@@ -56,7 +62,7 @@ class Status implements StringInitializedInterface {
      * @return Status self
      */
     protected function setStatus($status) {
-        $this->status = $status;
+        $this->status = (int) $status;
         return $this;
     }
 
@@ -91,7 +97,7 @@ class Status implements StringInitializedInterface {
     /**
      * Define exception class by receipt status code
      * @param int $status receipt status code
-     * @return bool|string exception class name for inalid status codes or TRUE for correct code
+     * @return bool|string exception class name for invalid status codes or TRUE for correct code
      */
     protected static function checkStatus($status) {
         switch ($status) {
@@ -114,42 +120,3 @@ class Status implements StringInitializedInterface {
         }
     }
 }
-
-/**
- * Base exception class for invalid receipts
- */
-class InvalidReceiptException extends \Exception {
-    public static function getClass() {
-        return get_called_class();
-    }
-}
-
-/**
- * The App Store could not read the JSON object you provided
- */
-final class UnreadableRequestException extends InvalidReceiptException {}
-
-/**
- * The data in the receipt-data property was malformed
- */
-final class MalformedReceiptDataException extends InvalidReceiptException {}
-
-/**
- * The receipt could not be authenticated
- */
-final class UnauthenticatedReceiptException extends InvalidReceiptException {}
-
-/**
- * The receipt server is not currently available
- */
-final class UnavailableServerException extends InvalidReceiptException {}
-
-/**
- * This receipt is a sandbox receipt, but it was sent to the production service for verification
- */
-final class SandboxReceiptOnProductionException extends InvalidReceiptException {}
-
-/**
- * This receipt is a production receipt, but it was sent to the sandbox service for verification
- */
-final class ProductionReceiptOnSandboxException extends InvalidReceiptException {}

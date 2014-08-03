@@ -1,8 +1,8 @@
 <?php
 
-namespace AppStore\Client\Response;
-
-use AppStore\Client\ObjectInitializedInterface;
+namespace alxmsl\AppStore\Response;
+use alxmsl\AppStore\ObjectInitializedInterface;
+use stdClass;
 
 /**
  * Purchases receipt class
@@ -251,8 +251,7 @@ class Receipt implements ObjectInitializedInterface {
      * Treat a canceled receipt the same as if no purchase had ever been made.
      * @return string
      */
-    public function getCancellationDate()
-    {
+    public function getCancellationDate() {
         return $this->cancellationDate;
     }
 
@@ -262,18 +261,17 @@ class Receipt implements ObjectInitializedInterface {
      * @param string $cancellationDate
      * @return $this
      */
-    public function setCancellationDate($cancellationDate)
-    {
-        $this->cancellationDate = $cancellationDate;
+    public function setCancellationDate($cancellationDate) {
+        $this->cancellationDate = (string) $cancellationDate;
         return $this;
     }
 
     /**
      * Initialization method
-     * @param \stdClass $Object object for initialization
+     * @param stdClass $Object object for initialization
      * @return RenewableReceipt initialized receipt for auto-renewable subscription
      */
-    public static function initializeByObject(\stdClass $Object) {
+    public static function initializeByObject(stdClass $Object) {
         $Receipt = new self();
 
         if (isset($Object->app_item_id)) {

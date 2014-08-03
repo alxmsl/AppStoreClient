@@ -1,6 +1,7 @@
 <?php
 
-namespace AppStore\Client;
+namespace alxmsl\AppStore;
+use stdClass;
 
 /**
  * Interface for self-initialization objects by standard classes
@@ -10,8 +11,8 @@ namespace AppStore\Client;
 interface ObjectInitializedInterface {
     /**
      * Initialization method
-     * @param \stdClass $Object object for initialization
+     * @param stdClass $Object object for initialization
      * @return ObjectInitializedInterface initialized object
      */
-    public static function initializeByObject(\stdClass $Object);
+    public static function initializeByObject(stdClass $Object);
 }

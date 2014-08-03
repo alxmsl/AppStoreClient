@@ -1,6 +1,6 @@
 <?php
 
-namespace AppStore\Client;
+namespace alxmsl\AppStore;
 
 /**
  * Interface for self-initialization objects by encoded strings

@@ -1,6 +1,7 @@
 <?php
 
-namespace AppStore\Client\Response;
+namespace alxmsl\AppStore\Response;
+use stdClass;
 
 /**
  * Auto-renewable receipt class
@@ -24,7 +25,7 @@ final class RenewableReceipt extends Receipt {
      * @return RenewableReceipt self
      */
     private function setExpiresDate($expiresDate) {
-        $this->expiresDate = $expiresDate;
+        $this->expiresDate = (int) $expiresDate;
         return $this;
     }
 
@@ -41,9 +42,8 @@ final class RenewableReceipt extends Receipt {
      * @param string $webOrderLineItemId
      * @return $this
      */
-    public function setWebOrderLineItemId($webOrderLineItemId)
-    {
-        $this->webOrderLineItemId = $webOrderLineItemId;
+    public function setWebOrderLineItemId($webOrderLineItemId) {
+        $this->webOrderLineItemId = (string) $webOrderLineItemId;
         return $this;
     }
 
@@ -51,17 +51,16 @@ final class RenewableReceipt extends Receipt {
      * The primary key for identifying subscription purchases
      * @return string
      */
-    public function getWebOrderLineItemId()
-    {
+    public function getWebOrderLineItemId() {
         return $this->webOrderLineItemId;
     }
 
     /**
      * Initialization method
-     * @param \stdClass $Object object for initialization
+     * @param stdClass $Object object for initialization
      * @return RenewableReceipt initialized receipt for auto-renewable subscription
      */
-    public static function initializeByObject(\stdClass $Object) {
+    public static function initializeByObject(stdClass $Object) {
         $Receipt = new self();
 
         if (isset($Object->app_item_id)) {

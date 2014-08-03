@@ -1,6 +1,10 @@
 <?php
 
-namespace AppStore\Client\Response;
+namespace alxmsl\AppStore\Response;
+use alxmsl\AppStore\Exception\ExpiredSubscriptionException;
+use alxmsl\AppStore\Exception\InvalidReceiptException;
+use alxmsl\AppStore\Exception\UnmatchedSharedSecretException;
+use InvalidArgumentException;
 
 /**
  * Class for iTunes status of auto-renewable subscription receipt
@@ -11,8 +15,8 @@ final class RenewableStatus extends Status {
     /**
      * Status code constants
      */
-    const   STATUS_UNMATCHED_SHARED_SECRET  = 21004,
-            STATUS_EXPIRED_SUBSCRIPTION     = 21006;
+    const STATUS_UNMATCHED_SHARED_SECRET = 21004,
+          STATUS_EXPIRED_SUBSCRIPTION    = 21006;
 
     /**
      * @var string latest receipt base64 encoded data
@@ -48,7 +52,7 @@ final class RenewableStatus extends Status {
      * @return RenewableStatus self
      */
     private function setLatestReceipt($latestReceipt) {
-        $this->latestReceipt = $latestReceipt;
+        $this->latestReceipt = (string) $latestReceipt;
         return $this;
     }
 
@@ -65,7 +69,7 @@ final class RenewableStatus extends Status {
      * @param string $string data for object initialization
      * @throws InvalidReceiptException when receipt status code is invalid
      * @throws ExpiredSubscriptionException when subscription expired
-     * @throws \InvalidArgumentException wen initialization data incorrect
+     * @throws InvalidArgumentException wen initialization data incorrect
      * @return RenewableStatus initialized status object
      */
     public static function initializeByString($string) {
@@ -73,7 +77,7 @@ final class RenewableStatus extends Status {
         switch ($Object->status) {
             case self::STATUS_OK:
                 if (!isset($Object->latest_receipt)) {
-                    throw new \InvalidArgumentException();
+                    throw new InvalidArgumentException();
                 } else {
                     $RenewableStatus = new self();
                     $RenewableStatus->setLatestReceipt($Object->latest_receipt)
@@ -106,35 +110,5 @@ final class RenewableStatus extends Status {
             default:
                 return parent::checkStatus($status);
         }
-    }
-}
-
-/**
- * The shared secret you provided does not match the shared secret on file for your account
- */
-final class UnmatchedSharedSecretException extends InvalidReceiptException {}
-
-/**
- * This receipt is valid but the subscription has expired
- */
-final class ExpiredSubscriptionException extends InvalidReceiptException {
-    /**
-     * @var RenewableStatus status object for expired subscription
-     */
-    private $Status = null;
-
-    /**
-     * Getter for expired subscription object
-     * @return RenewableStatus expired subscription object
-     */
-    public function getStatus() {
-        return $this->Status;
-    }
-
-    /**
-     * @param RenewableStatus $Status expired subscription object
-     */
-    public function __construct(RenewableStatus $Status) {
-        $this->Status = $Status;
     }
 }
