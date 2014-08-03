@@ -1,0 +1,22 @@
+{
+    "name": "alxmsl/appstoreclient",
+    "description": "AppStore client for iTunes purchases receipts verification",
+    "keywords": ["appstore", "apple", "itunes", "inapp", "purchases"],
+    "license": "WTFPL",
+    "authors": [
+        {
+            "name": "alxmsl",
+            "email": "alexey.y.maslov@gmail.com"
+        }
+    ],
+    "support": {
+        "email": "alexey.y.maslov@gmail.com",
+        "issues": "https://github.com/alxmsl/AppStoreClient/issues"
+    },
+    "autoload": {
+        "psr-4": {"alxmsl\\AppStore\\": "source/"}
+    },
+    "require":{
+        "alxmsl/network": ">=1.0.1"
+    }
+}

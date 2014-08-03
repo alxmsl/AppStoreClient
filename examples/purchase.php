@@ -6,16 +6,18 @@
  */
 
 include '../source/Autoloader.php';
-include '../lib/Network/source/Autoloader.php';
+include '../vendor/alxmsl/network/source/Autoloader.php';
+
+use alxmsl\AppStore\Client;
 
 /**
  * Define needed constants
  */
-const   SANDBOX = true,
-        RECEIPT = 'MySECReTRece1Pt=';
+const SANDBOX = true,
+      RECEIPT = 'MySECReTRece1Pt=';
 
 // Create App Store client for production or sandbox
-$AppStore = new \AppStore\Client\AppStoreClient();
+$AppStore = new Client();
 $AppStore->setSandbox(SANDBOX);
 
 // Verify purchase receipt

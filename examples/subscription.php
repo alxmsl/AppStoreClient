@@ -6,23 +6,26 @@
  */
 
 include '../source/Autoloader.php';
-include '../lib/Network/source/Autoloader.php';
+include '../vendor/alxmsl/network/source/Autoloader.php';
+
+use alxmsl\AppStore\Client;
+use alxmsl\AppStore\Exception\ExpiredSubscriptionException;
 
 /**
  * Define needed constants
  */
-const   PASSWORD = 'secredsharedpassword',
-        SANDBOX = true,
-        RECEIPT = 'MySECReT5u8sCR1Pti0NRece1Pt=';
+const PASSWORD = 'secredsharedpassword',
+      SANDBOX = true,
+      RECEIPT = 'MySECReT5u8sCR1Pti0NRece1Pt=';
 
 // Create App Store client for production or sandbox
-$AppStore = new \AppStore\Client\AppStoreClient();
+$AppStore = new Client();
 $AppStore->setPassword(PASSWORD)
     ->setSandbox(SANDBOX);
 
 // Verify subscription receipt
 try {
     var_dump($AppStore->verifyReceipt(RECEIPT));
-} catch (\AppStore\Client\Response\ExpiredSubscriptionException $ex) {
+} catch (ExpiredSubscriptionException $ex) {
     var_dump($ex->getStatus());
 }
