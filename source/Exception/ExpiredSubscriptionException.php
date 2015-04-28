@@ -8,7 +8,7 @@
  */
 
 namespace alxmsl\AppStore\Exception;
-use alxmsl\AppStore\Response\RenewableStatus;
+use alxmsl\AppStore\Response\iOS6\RenewableStatus;
 
 /**
  * This receipt is valid but the subscription has expired
@@ -34,4 +34,3 @@ final class ExpiredSubscriptionException extends InvalidReceiptException {
         $this->Status = $Status;
     }
 }
- 

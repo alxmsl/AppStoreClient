@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-namespace alxmsl\AppStore\Response;
+namespace alxmsl\AppStore\Response\iOS6;
 use alxmsl\AppStore\ObjectInitializedInterface;
 use stdClass;
 

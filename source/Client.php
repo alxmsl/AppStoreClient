@@ -8,8 +8,8 @@
  */
 
 namespace alxmsl\AppStore;
-use alxmsl\AppStore\Response\Status;
-use alxmsl\AppStore\Response\RenewableStatus;
+use alxmsl\AppStore\Response\iOS6\Status;
+use alxmsl\AppStore\Response\iOS6\RenewableStatus;
 use InvalidArgumentException;
 
 /**
