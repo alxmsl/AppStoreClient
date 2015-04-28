@@ -110,7 +110,7 @@ final class RenewableStatus extends Status {
      * @param int $status receipt status code
      * @return bool|string exception class name for inalid status codes or TRUE for correct code
      */
-    protected static function checkStatus($status) {
+    public static function checkStatus($status) {
         switch ($status) {
             case self::STATUS_UNMATCHED_SHARED_SECRET:
                 return UnmatchedSharedSecretException::getClass();

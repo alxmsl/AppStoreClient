@@ -106,7 +106,7 @@ class Status implements StringInitializedInterface {
      * @param int $status receipt status code
      * @return bool|string exception class name for invalid status codes or TRUE for correct code
      */
-    protected static function checkStatus($status) {
+    public static function checkStatus($status) {
         switch ($status) {
             case Status::STATUS_OK:
                 return true;
