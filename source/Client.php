@@ -10,6 +10,7 @@
 namespace alxmsl\AppStore;
 use alxmsl\AppStore\Response\iOS6\Status;
 use alxmsl\AppStore\Response\iOS6\RenewableStatus;
+use alxmsl\AppStore\Response\iOS7\ResponsePayload;
 use InvalidArgumentException;
 
 /**
@@ -45,9 +46,13 @@ final class Client extends AbstractClient {
             ->addPostField('password', $this->getPassword());
         $data = $Request->send();
         try {
-            return RenewableStatus::initializeByString($data);
-        } catch (InvalidArgumentException $ex) {
-            return Status::initializeByString($data);
+            return ResponsePayload::initializeByString($data);
+        } catch (InvalidArgumentException $Ex) {
+            try {
+                return RenewableStatus::initializeByString($data);
+            } catch (InvalidArgumentException $ex) {
+                return Status::initializeByString($data);
+            }
         }
     }
 }

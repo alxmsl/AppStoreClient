@@ -17,6 +17,7 @@
         "psr-4": {"alxmsl\\AppStore\\": "source/"}
     },
     "require":{
-        "alxmsl/network": ">=1.0.1"
+        "alxmsl/network": ">=1.0.1",
+        "alxmsl/cli": ">=1.0.2"
     }
 }
