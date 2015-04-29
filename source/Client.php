@@ -38,7 +38,7 @@ final class Client extends AbstractClient {
     /**
      * Method for receipts data verification
      * @param string $receipt base64 encoded receipt
-     * @return Status|RenewableStatus iTunes status for receipt
+     * @return Status|RenewableStatus|ResponsePayload iTunes status for receipt
      */
     public function verifyReceipt($receipt) {
         $Request = $this->getRequest($this->getEndpointUrl());
