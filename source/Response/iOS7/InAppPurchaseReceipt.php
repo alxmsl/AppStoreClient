@@ -64,6 +64,71 @@ final class InAppPurchaseReceipt implements ObjectInitializedInterface {
     private $webOrderLineItemId = '';
 
     /**
+     * @return int number of items purchased
+     */
+    public function getQuantity() {
+        return $this->quantity;
+    }
+
+    /**
+     * @return string product identifier of the item that was purchased
+     */
+    public function getProductId() {
+        return $this->productId;
+    }
+
+    /**
+     * @return string transaction identifier of the item that was purchased
+     */
+    public function getTransactionId() {
+        return $this->transactionId;
+    }
+
+    /**
+     * @return string transaction that restores a previous transaction, the transaction identifier of the original
+     * transaction. Otherwise, identical to the transaction identifier
+     */
+    public function getOriginalTransactionId() {
+        return $this->originalTransactionId;
+    }
+
+    /**
+     * @return string date and time that the item was purchased (ISO 3339)
+     */
+    public function getPurchaseDate() {
+        return $this->purchaseDate;
+    }
+
+    /**
+     * @return string transaction that restores a previous transaction, the date of the original transaction (ISO 3339)
+     */
+    public function getOriginalPurchaseDate() {
+        return $this->originalPurchaseDate;
+    }
+
+    /**
+     * @return int expiration date for the subscription (milliseconds)
+     */
+    public function getExpiresDate() {
+        return $this->expiresDate;
+    }
+
+    /**
+     * @return string transaction that was canceled by Apple customer support,
+     * the time and date of the cancellation (ISO 3339)
+     */
+    public function getCancellationDate() {
+        return $this->cancellationDate;
+    }
+
+    /**
+     * @return string primary key for identifying subscription purchases
+     */
+    public function getWebOrderLineItemId() {
+        return $this->webOrderLineItemId;
+    }
+
+    /**
      * @inheritdoc
      * @return InAppPurchaseReceipt App Receipt instance
      */

@@ -34,6 +34,13 @@ final class ResponsePayload implements StringInitializedInterface {
     private $AppReceipt = null;
 
     /**
+     * @return AppReceipt|null app receipt instance
+     */
+    public function getAppReceipt() {
+        return $this->AppReceipt;
+    }
+
+    /**
      * @return int response status code
      */
     public function getStatus() {
