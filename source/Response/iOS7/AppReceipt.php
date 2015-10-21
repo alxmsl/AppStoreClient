@@ -106,11 +106,15 @@ final class AppReceipt implements ObjectInitializedInterface {
      */
     public static function initializeByObject(stdClass $Object) {
         $AppReceipt = new self();
-        $AppReceipt->appItemId                  = (string) $Object->app_item_id;
-        $AppReceipt->applicationVersion         = (string) $Object->application_version;
-        $AppReceipt->bundleId                   = (string) $Object->bundle_id;
-        $AppReceipt->originalApplicationVersion = (string) $Object->original_application_version;
-        $AppReceipt->versionExternalIdentifier  = (string) $Object->version_external_identifier;
+        $AppReceipt->appItemId = (string) $Object->app_item_id;
+        $AppReceipt->applicationVersion = (string) $Object->application_version;
+        $AppReceipt->bundleId = (string) $Object->bundle_id;
+
+        if (property_exists($Object, 'original_application_version')) {
+            $AppReceipt->originalApplicationVersion = (string) $Object->original_application_version;
+        }
+        $AppReceipt->versionExternalIdentifier = (string) $Object->versionExternalIdentifier;
+
         foreach ($Object->in_app as $PurchaseObject) {
             $AppReceipt->inAppPurchaseReceipts[] = InAppPurchaseReceipt::initializeByObject($PurchaseObject);
         }
