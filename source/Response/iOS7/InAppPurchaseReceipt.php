@@ -145,7 +145,7 @@ final class InAppPurchaseReceipt implements ObjectInitializedInterface {
             $InAppPurchaseReceipt->cancellationDate = (string) $Object->cancellation_date;
         }
         if (isset($Object->web_order_line_item_id)) {
-            $InAppPurchaseReceipt->expiresDate        = (int) $Object->expires_date;
+            $InAppPurchaseReceipt->expiresDate        = (int) $Object->expires_date_ms;
             $InAppPurchaseReceipt->webOrderLineItemId = (string) $Object->web_order_line_item_id;
         }
         return $InAppPurchaseReceipt;
