@@ -113,7 +113,7 @@ final class AppReceipt implements ObjectInitializedInterface {
         if (property_exists($Object, 'original_application_version')) {
             $AppReceipt->originalApplicationVersion = (string) $Object->original_application_version;
         }
-        $AppReceipt->versionExternalIdentifier = (string) $Object->versionExternalIdentifier;
+        $AppReceipt->versionExternalIdentifier = (string) $Object->version_external_identifier;
 
         foreach ($Object->in_app as $PurchaseObject) {
             $AppReceipt->inAppPurchaseReceipts[] = InAppPurchaseReceipt::initializeByObject($PurchaseObject);
